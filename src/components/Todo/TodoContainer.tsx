@@ -18,6 +18,7 @@ const TodoContainer = () => {
               id={todoTask.id}
               title={todoTask.title}
               description={todoTask.description}
+              isCompleted={todoTask.isCompleted}
             />
           ))}
         </div>
