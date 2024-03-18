@@ -1,6 +1,6 @@
 // import { useAppDispatch } from "@/redux/hook";
 import { Button } from "../ui/button";
-import { removeTodo, toggleComplete } from "@/redux/features/todoSlice";
+// import { removeTodo, toggleComplete } from "@/redux/features/todoSlice";
 type TTodoTasks = {
   id: string;
   title: string;
@@ -36,9 +36,9 @@ const TodoCard = ({
         <div className="flex-1 flex items-center gap-2">
           <div
             className={`size-3 rounded-full 
-            ${priority === "high" ? "bg-red-500" : ""}
-            ${priority === "medium" ? "bg-yellow-500" : ""}
-            ${priority === "low" ? "bg-green-500" : ""}`}
+            ${priority === "High" ? "bg-red-500" : ""}
+            ${priority === "Medium" ? "bg-yellow-500" : ""}
+            ${priority === "Low" ? "bg-green-500" : ""}`}
           ></div>
           <p>{priority}</p>
         </div>
