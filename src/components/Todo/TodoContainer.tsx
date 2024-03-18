@@ -1,6 +1,6 @@
 // import { useAppSelector } from "@/redux/hook";
 import AddTodoModal from "./AddTodoModal";
-import TodoCard from "./TodoCard";
+import TodoCard, { TTodoTasks } from "./TodoCard";
 import TodoFilter from "./TodoFilter";
 import { useGetTodosQuery } from "@/redux/api/api";
 
@@ -19,7 +19,7 @@ const TodoContainer = () => {
       </div>
       <div className="w-full h-full rounded-xl p-[5px]  bg-primary-gradient">
         <div className="bg-white p-5 w-full h-full rounded-lg space-y-3 ">
-          {todos?.data?.map((todoTask) => (
+          {todos?.data?.map((todoTask: TTodoTasks) => (
             <TodoCard
               id={todoTask.id}
               title={todoTask.title}
