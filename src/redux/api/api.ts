@@ -7,10 +7,15 @@ export const baseApi = createApi({
   endpoints: (builder) => ({
     getTodos: builder.query({
       query: (priority) => {
-        return { url: `/tasks`, method: "GET", params: { priority } };
+        const params = new URLSearchParams();
+        if (priority) {
+          params.append("priority", priority);
+        }
+        return { url: `/tasks`, method: "GET", params: params };
       },
       providesTags: ["todo"],
     }),
+
     addTodos: builder.mutation({
       query: (data) => {
         console.log("inside base api =>", data);
