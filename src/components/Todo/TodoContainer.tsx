@@ -24,12 +24,13 @@ const TodoContainer = () => {
         <div className="bg-white p-5 w-full h-full rounded-lg space-y-3 ">
           {todos?.data?.map((todoTask: TTodoTasks) => (
             <TodoCard
-              key={todoTask.id}
-              id={todoTask.id}
-              title={todoTask.title}
-              description={todoTask.description}
-              isCompleted={todoTask.isCompleted}
-              priority={todoTask.priority}
+              // key={todoTask.id}
+              // id={todoTask._id}
+              // title={todoTask.title}
+              // description={todoTask.description}
+              // isCompleted={todoTask.isCompleted}
+              // priority={todoTask.priority}
+              {...todoTask}
             />
           ))}
         </div>

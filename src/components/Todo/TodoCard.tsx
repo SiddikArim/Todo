@@ -1,5 +1,10 @@
 // import { useAppDispatch } from "@/redux/hook";
+import {
+  useDeleteTodoMutation,
+  useUpdateTodoCompleteMutation,
+} from "@/redux/api/api";
 import { Button } from "../ui/button";
+import UpdateTodoModal from "./updateTodoModal";
 // import { removeTodo, toggleComplete } from "@/redux/features/todoSlice";
 export type TTodoTasks = {
   id: string;
@@ -7,8 +12,10 @@ export type TTodoTasks = {
   description: string;
   isCompleted?: boolean;
   priority: string;
+  _id: string;
 };
 const TodoCard = ({
+  _id,
   title,
   description,
   isCompleted,
@@ -16,20 +23,48 @@ const TodoCard = ({
 }: TTodoTasks) => {
   /*
   managing state locally 
+  --------------
+  const dispatch = useAppDispatch();
+  const checkboxController = () => {
+    dispatch(toggleComplete(id));
+  }
   */
-  // const dispatch = useAppDispatch();
-  // const checkboxController = () => {
-  //   dispatch(toggleComplete(id));
-  // };
+
+  // managing state from db
+  const [updateTodoComplete, { isLoading }] = useUpdateTodoCompleteMutation();
+  const [deleteTask] = useDeleteTodoMutation();
+  if (isLoading) {
+    <p>loading update please wait</p>;
+  }
+  const handleCheckBoxClick = () => {
+    const taskData = {
+      id: _id,
+      title,
+      description,
+      isCompleted: !isCompleted,
+      priority,
+    };
+    console.log(taskData);
+    updateTodoComplete(taskData);
+  };
+  const handleDelete = () => {
+    const taskData = {
+      id: _id,
+    };
+    console.log(taskData);
+    deleteTask(taskData);
+  };
+
   return (
     <div>
       <div className="bg-white rounded flex justify-between items-center p-3 border">
         <input
           className="mr-3"
-          // onChange={checkboxController}
+          onChange={handleCheckBoxClick}
           type="checkbox"
           name="complete"
           id="complete"
+          checked={isCompleted}
         />
         <p className="font-semibold flex-1">{title}</p>
         <div className="flex-1 flex items-center gap-2">
@@ -52,6 +87,7 @@ const TodoCard = ({
         <div className="space-x-4">
           <Button
             // onClick={() => dispatch(removeTodo(id))}
+            onClick={handleDelete}
             className="bg-red-500"
           >
             <svg
@@ -69,22 +105,14 @@ const TodoCard = ({
               ></path>
             </svg>
           </Button>
-          <Button className="bg-[#5C53FE]">
-            <svg
-              className="size-5"
-              fill="none"
-              strokeWidth="1.5"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
-              ></path>
-            </svg>
-          </Button>
+
+          <UpdateTodoModal
+            key={_id}
+            id={_id}
+            UpTitle={title}
+            UpDescription={description}
+            UpPriority={priority}
+          ></UpdateTodoModal>
         </div>
       </div>
     </div>

@@ -27,7 +27,45 @@ export const baseApi = createApi({
       },
       invalidatesTags: ["todo"],
     }),
+    updateTodoComplete: builder.mutation({
+      query: (data) => {
+        console.log("inside base api =>", data);
+        return {
+          url: `/task/${data.id}`,
+          method: "PUT",
+          body: data,
+        };
+      },
+      invalidatesTags: ["todo"],
+    }),
+    deleteTodo: builder.mutation({
+      query: (data) => {
+        console.log("inside base api =>", data);
+        return {
+          url: `/task/${data.id}`,
+          method: "DELETE",
+        };
+      },
+      invalidatesTags: ["todo"],
+    }),
+    updateTodo: builder.mutation({
+      query: (data) => {
+        console.log("inside base api =>", data);
+        return {
+          url: `/task/${data.id}`,
+          method: "PUT",
+          body: data,
+        };
+      },
+      invalidatesTags: ["todo"],
+    }),
   }),
 });
 
-export const { useGetTodosQuery, useAddTodosMutation } = baseApi;
+export const {
+  useGetTodosQuery,
+  useAddTodosMutation,
+  useUpdateTodoCompleteMutation,
+  useDeleteTodoMutation,
+  useUpdateTodoMutation,
+} = baseApi;
